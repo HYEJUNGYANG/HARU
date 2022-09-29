@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "399333257975",
+    "firebase_url": "https://mydear-bb10e-default-rtdb.firebaseio.com",
+    "project_id": "mydear-bb10e",
+    "storage_bucket": "mydear-bb10e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399333257975:android:f10ba67e6d18c6940f19f2",
+        "android_client_info": {
+          "package_name": "com.mydaer.haru"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399333257975-1dskr6eitf1bvq1h3g5ba9bis3hv0boo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Q3YFn65NdHYUC5jj-eOGV1K2f8UzToM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399333257975-1dskr6eitf1bvq1h3g5ba9bis3hv0boo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399333257975:android:baf1053cd5dcdfc40f19f2",
+        "android_client_info": {
+          "package_name": "com.mydear.haru"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399333257975-1dskr6eitf1bvq1h3g5ba9bis3hv0boo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Q3YFn65NdHYUC5jj-eOGV1K2f8UzToM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399333257975-1dskr6eitf1bvq1h3g5ba9bis3hv0boo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

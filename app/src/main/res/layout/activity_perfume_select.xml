@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".survey.PerfumeSelectActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/iv_haru"
+        android:layout_width="88dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/icon_haru"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="45dp"
+        android:text="선호하는 향을 1가지 이상 골라주세요"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_haru" />
+
+    <TextView
+        android:id="@+id/tv_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:text=" (최대 6개)"
+        android:textColor="#1187CF"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/iv_haru" />
+
+    <View
+        android:id="@+id/container"
+        android:layout_width="350dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/edit_round_purple_transparency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_perfume1_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:text="#상큼함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@+id/container"
+        app:layout_constraintTop_toTopOf="@+id/container" />
+
+    <TextView
+        android:id="@+id/tv_perfume1_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:text="#달콤함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume1_1"
+        app:layout_constraintTop_toTopOf="@+id/container" />
+
+    <TextView
+        android:id="@+id/tv_perfume1_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:text="#프루티함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume1_2"
+        app:layout_constraintTop_toTopOf="@+id/container" />
+
+    <TextView
+        android:id="@+id/tv_perfume1_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:text="#싱그러움"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume1_3"
+        app:layout_constraintTop_toTopOf="@+id/container" />
+
+    <TextView
+        android:id="@+id/tv_perfume2_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="#은은함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@+id/container"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume1_1" />
+
+    <TextView
+        android:id="@+id/tv_perfume2_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#우아함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume2_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume1_2" />
+
+    <TextView
+        android:id="@+id/tv_perfume2_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#매혹적"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume2_2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume1_3" />
+
+    <TextView
+        android:id="@+id/tv_perfume2_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#여성스러움"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume2_3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume1_4" />
+
+    <TextView
+        android:id="@+id/tv_perfume2_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#화사함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume2_4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume1_4" />
+
+    <TextView
+        android:id="@+id/tv_perfume2_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#플로럴"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume2_5"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume1_4" />
+
+    <TextView
+        android:id="@+id/tv_perfume3_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="#청량함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@+id/container"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume2_1" />
+
+    <TextView
+        android:id="@+id/tv_perfume3_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#프레쉬"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume3_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume2_2" />
+
+    <TextView
+        android:id="@+id/tv_perfume3_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#시원함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume3_2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume2_3" />
+
+    <TextView
+        android:id="@+id/tv_perfume3_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#우디함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume3_3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume2_4" />
+
+    <TextView
+        android:id="@+id/tv_perfume4_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="#포근함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@+id/container"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume3_1" />
+
+    <TextView
+        android:id="@+id/tv_perfume4_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#깨끗함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume4_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume3_2" />
+
+    <TextView
+        android:id="@+id/tv_perfume4_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#파우더리함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume4_2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume3_3" />
+
+    <TextView
+        android:id="@+id/tv_perfume4_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#런더리함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume4_3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume3_4" />
+
+    <TextView
+        android:id="@+id/tv_perfume4_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="#순수함"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_perfume4_4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfume3_4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_round_navi"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="다음"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

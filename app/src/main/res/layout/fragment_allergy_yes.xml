@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_allergy_yes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_round_navi"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="맞춤 두피 제품"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="제외하고 싶은 성분을 선택해 주세요."
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_head" />
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="300dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_round_purple_transparency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select" />
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_round_navi"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="자극적인 계면활성제"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/v1"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toTopOf="@+id/v1" />
+
+    <CheckBox
+        android:id="@+id/cb_1_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb1_1"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title1" />
+
+    <TextView
+        android:id="@+id/tv_cb1_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="소듐라우릴셀퍼이트(SLS)"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_1_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title1" />
+
+    <CheckBox
+        android:id="@+id/cb_1_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb1_2"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/cb_1_1" />
+
+    <TextView
+        android:id="@+id/tv_cb1_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="소듐라우레스설페이트(SLES)"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_1_2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cb1_1" />
+
+    <View
+        android:id="@+id/v2"
+        android:layout_width="300dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_round_purple_transparency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v1" />
+
+    <TextView
+        android:id="@+id/tv_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_round_navi"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:text="가습기 살균제"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/v2"
+        app:layout_constraintStart_toStartOf="@+id/v2"
+        app:layout_constraintTop_toTopOf="@+id/v2" />
+
+    <CheckBox
+        android:id="@+id/cb_2_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb2_1"
+        app:layout_constraintStart_toStartOf="@+id/v2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title2" />
+
+    <TextView
+        android:id="@+id/tv_cb2_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="메칠클로로이소치아졸리논"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_2_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title2" />
+
+    <CheckBox
+        android:id="@+id/cb_2_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb2_2"
+        app:layout_constraintStart_toStartOf="@+id/v2"
+        app:layout_constraintTop_toBottomOf="@+id/cb_2_1" />
+
+    <TextView
+        android:id="@+id/tv_cb2_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="메칠이소치아졸리논(CMIT/MIT)"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_2_2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cb2_1" />
+
+    <View
+        android:id="@+id/v3"
+        android:layout_width="300dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/edit_round_purple_transparency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v2" />
+
+    <TextView
+        android:id="@+id/tv_title3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_round_navi"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="실리콘, 그 외 유해성분"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/v3"
+        app:layout_constraintStart_toStartOf="@+id/v3"
+        app:layout_constraintTop_toTopOf="@+id/v3" />
+
+    <CheckBox
+        android:id="@+id/cb_3_1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb3_1"
+        app:layout_constraintStart_toStartOf="@+id/v3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title3" />
+
+    <TextView
+        android:id="@+id/tv_cb3_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="디메치콘"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_3_1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title3" />
+
+    <CheckBox
+        android:id="@+id/cb_3_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb3_2"
+        app:layout_constraintStart_toStartOf="@+id/v3"
+        app:layout_constraintTop_toBottomOf="@+id/cb_3_1" />
+
+    <TextView
+        android:id="@+id/tv_cb3_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="이소프로필알코올"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_3_2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cb3_1" />
+
+    <CheckBox
+        android:id="@+id/cb_3_3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/btn_select_rectangle"
+        android:button="@null"
+        app:layout_constraintEnd_toStartOf="@+id/tv_cb3_3"
+        app:layout_constraintStart_toStartOf="@+id/v3"
+        app:layout_constraintTop_toBottomOf="@+id/cb_3_2" />
+
+    <TextView
+        android:id="@+id/tv_cb3_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:text="트리에탄올아민"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@+id/cb_3_3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cb3_2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
