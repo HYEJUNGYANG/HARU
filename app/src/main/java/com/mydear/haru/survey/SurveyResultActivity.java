@@ -66,7 +66,7 @@ public class SurveyResultActivity extends AppCompatActivity {
     private String type = "";
     private List<Integer> result;
 
-    private boolean isType, isCare, isTrait = false;
+    private boolean isType = false, isCare = false, isTrait = false;
 
     private Map<String, String> care;
     private Map<String, String> trait;
