@@ -123,9 +123,17 @@ public class SurveyActivity extends AppCompatActivity {
                 vibrator.vibrate(200);
                 StyleableToast.makeText(SurveyActivity.this, "모든 항목을 체크해주세요 😀", Toast.LENGTH_SHORT, R.style.allCheckToast).show();
 //                Toast.makeText(SurveyActivity.this, "모든 항목을 체크해주세요 😀", Toast.LENGTH_SHORT).show();
-                btn_submit.setVisibility(View.GONE);
-                btn_back.setVisibility(View.VISIBLE);
-                btn_next.setVisibility(View.VISIBLE);
+
+                // group4를 제외한 나머지 그룹은 전부 체크가 되었을 때
+                if(result.isGroup1IsChecked() && result.isGroup2IsChecked()
+                        && result.isGroup3IsChecked() && !result.isGroup4IsChecked()) {
+                    return;  // 버튼 변경 없이 완료하기 유지한채 그룹4 체크되도록
+                }
+                else {
+                    btn_submit.setVisibility(View.GONE);
+                    btn_back.setVisibility(View.VISIBLE);
+                    btn_next.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
