@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -61,7 +62,16 @@ public class PerfumeSelectActivity extends AppCompatActivity {
                     Toast.makeText(PerfumeSelectActivity.this, "하나 이상 선택해 주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Toast.makeText(PerfumeSelectActivity.this, "click", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PerfumeSelectActivity.this, RecommendActivity.class);
+                // 이후 값 저장 or 값 넘기기 코드 작성 필수!!
+                Toast.makeText(PerfumeSelectActivity.this, "RECOMMEND ✨", Toast.LENGTH_SHORT).show();
+
+                // 나중에 지워질 코드
+                for (String s : list) {
+                    System.out.println(s + "향");
+                }
+                //
+                startActivity(intent);
             }
         });
     }

@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/drawable/resize_icon_back.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/resize_icon_clock.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/resize_icon_heart.xml" value="0.1495" />
+        <entry key="app/src/main/res/drawable/resize_icon_home.xml" value="0.1975" />
         <entry key="app/src/main/res/drawable/resize_icon_inverted_triangle_btn.xml" value="0.1485" />
         <entry key="app/src/main/res/drawable/resize_icon_light.xml" value="0.1495" />
         <entry key="app/src/main/res/layout/activity_ingredient.xml" value="0.284375" />

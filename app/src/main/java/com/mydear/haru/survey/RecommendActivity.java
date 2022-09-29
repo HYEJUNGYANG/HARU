@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mydear.haru.MainActivity;
 import com.mydear.haru.R;
 
 import io.github.muddz.styleabletoast.StyleableToast;
@@ -34,7 +36,7 @@ public class RecommendActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.resize_icon_back);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.resize_icon_home);
 
         tv_toolbar_title = findViewById(R.id.tv_toolbar_title);
         changeTextColor(tv_toolbar_title, "혜정", "#1187CF", false);
@@ -68,8 +70,11 @@ public class RecommendActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // 이후 여기도 뒤로가기 버튼 눌리게 설정 해두기! 지금은 임시로 메인으로 설정해뒀기 때문에 뒤로가기 누르면 앱 종료됨 ㅠㅠ
-                StyleableToast.makeText(RecommendActivity.this, "Back", Toast.LENGTH_SHORT, R.style.allCheckToast).show();
+                Intent intent = new Intent(RecommendActivity.this, MainActivity.class);
+                // 이후 여기에 값 전달 or 값 저장 하게 설정 해두기
+                StyleableToast.makeText(RecommendActivity.this, "HOME ✨", Toast.LENGTH_SHORT, R.style.allCheckToast).show();
+                startActivity(intent);
+                finish();
                 return true;
             case R.id.menu_filter:
                 // 이후에 filter 클릭시 액티비티 전환되게
