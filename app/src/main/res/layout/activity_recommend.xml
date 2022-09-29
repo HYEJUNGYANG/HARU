@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".survey.RecommendActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" >
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="혜정 님을 위한 추천 아이템"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/dividing_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <View
+        android:id="@+id/circle_shampoo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/line_circle_purple"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+    <ImageView
+        android:id="@+id/iv_shampoo"
+        android:layout_width="30dp"
+        android:layout_height="60dp"
+        android:background="@drawable/img_shampoo"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_shampoo"
+        app:layout_constraintEnd_toEndOf="@+id/circle_shampoo"
+        app:layout_constraintStart_toStartOf="@+id/circle_shampoo"
+        app:layout_constraintTop_toTopOf="@+id/circle_shampoo" />
+
+    <TextView
+        android:id="@+id/tv_shampoo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="샴푸"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/circle_shampoo"
+        app:layout_constraintStart_toStartOf="@+id/circle_shampoo"
+        app:layout_constraintTop_toBottomOf="@+id/circle_shampoo" />
+
+    <View
+        android:id="@+id/circle_conditioner"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/line_circle_purple"
+        app:layout_constraintStart_toEndOf="@+id/circle_shampoo"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+    <ImageView
+        android:id="@+id/iv_conditioner"
+        android:layout_width="30dp"
+        android:layout_height="60dp"
+        android:background="@drawable/img_conditioner"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_conditioner"
+        app:layout_constraintEnd_toEndOf="@+id/circle_conditioner"
+        app:layout_constraintStart_toStartOf="@+id/circle_conditioner"
+        app:layout_constraintTop_toTopOf="@+id/circle_conditioner" />
+
+    <TextView
+        android:id="@+id/tv_conditioner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="린스 / 컨디셔너"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/circle_conditioner"
+        app:layout_constraintStart_toStartOf="@+id/circle_conditioner"
+        app:layout_constraintTop_toBottomOf="@+id/circle_conditioner" />
+
+    <View
+        android:id="@+id/circle_hair_pack"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/line_circle_purple"
+        app:layout_constraintStart_toEndOf="@+id/circle_conditioner"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+    <ImageView
+        android:id="@+id/iv_hair_pack"
+        android:layout_width="33dp"
+        android:layout_height="60dp"
+        android:background="@drawable/img_hair_pack"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_hair_pack"
+        app:layout_constraintEnd_toEndOf="@+id/circle_hair_pack"
+        app:layout_constraintStart_toStartOf="@+id/circle_hair_pack"
+        app:layout_constraintTop_toTopOf="@+id/circle_hair_pack" />
+
+    <TextView
+        android:id="@+id/tv_hair_pack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="헤어팩"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/circle_hair_pack"
+        app:layout_constraintStart_toStartOf="@+id/circle_hair_pack"
+        app:layout_constraintTop_toBottomOf="@+id/circle_hair_pack" />
+
+    <View
+        android:id="@+id/circle_hair_tonic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/line_circle_purple"
+        app:layout_constraintStart_toEndOf="@+id/circle_hair_pack"
+        app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+    <ImageView
+        android:id="@+id/iv_hair_tonic"
+        android:layout_width="25dp"
+        android:layout_height="60dp"
+        android:background="@drawable/img_hair_tonic"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_hair_tonic"
+        app:layout_constraintEnd_toEndOf="@+id/circle_hair_tonic"
+        app:layout_constraintStart_toStartOf="@+id/circle_hair_tonic"
+        app:layout_constraintTop_toTopOf="@+id/circle_hair_tonic" />
+
+    <TextView
+        android:id="@+id/tv_hair_tonic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="헤어토닉 / 세럼"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/circle_hair_tonic"
+        app:layout_constraintStart_toStartOf="@+id/circle_hair_tonic"
+        app:layout_constraintTop_toBottomOf="@+id/circle_hair_tonic" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/dividing_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_conditioner" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_product"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/haru_mainColor"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:text="제품 추천 화면"
+            android:textColor="@color/blue"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
