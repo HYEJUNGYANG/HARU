@@ -75,11 +75,13 @@ public class ProductDetailFragment extends Fragment {
 
     private void getDetailImage() {
         StorageReference productPathRef = storageRef.child("product/" + product_name + "/product.png");
+        Log.d(TAG, "productPathRef: " + productPathRef.toString());
 
         productPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.d(TAG, "이미지 값이 궁금하옵니다: " + product_name);
+                Log.d(TAG, "텍스트 잘 받아와졌나: " + product_name);
+                // 왜 이미지가 안뜰까
                 Glide.with(activity).load(uri).into(iv_product_detail);
                 layout_loading.setVisibility(View.GONE);
                 layout_content.setVisibility(View.VISIBLE);

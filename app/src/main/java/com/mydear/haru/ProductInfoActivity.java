@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -74,10 +76,41 @@ public class ProductInfoActivity extends AppCompatActivity {
 //        iv_product_detail = findViewById(R.id.iv_produce_detail);
 
         btn_product_detail = findViewById(R.id.btn_product_detail);
+        btn_product_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeButtonStyle(view, btn_product_ingredient, btn_product_perfume);
+            }
+        });
+
         btn_product_ingredient = findViewById(R.id.btn_product_ingredient);
+        btn_product_ingredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeButtonStyle(view, btn_product_detail, btn_product_perfume);
+            }
+        });
+
         btn_product_perfume = findViewById(R.id.btn_product_perfume);
+        btn_product_perfume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeButtonStyle(view, btn_product_detail, btn_product_ingredient);
+            }
+        });
 
         getImage(product_name);
+    }
+
+    public void changeButtonStyle(View view, Button btn1, Button btn2) {
+        Button btn = findViewById(view.getId());
+        btn.setBackground(getResources().getDrawable(R.drawable.btn_round2));
+        btn.setTextColor(Color.parseColor("#000000"));
+
+        btn1.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        btn1.setTextColor(Color.parseColor("#4D000000"));
+        btn2.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+        btn2.setTextColor(Color.parseColor("#4D000000"));
     }
 
     // firebase storage img 불러오기
