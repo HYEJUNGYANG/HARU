@@ -3,10 +3,14 @@ package com.mydear.haru;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,10 +20,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.mydear.haru.fragment.product.ProductDetailFragment;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
-//    private FirebaseStorage storage;
+    private ConstraintLayout loading;
+    private ConstraintLayout layout_content;
+
+    private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference productRef;
 
@@ -29,6 +37,14 @@ public class ProductInfoActivity extends AppCompatActivity {
 
     private ImageView iv_product;
     private ImageView iv_product_detail;
+
+    private FragmentManager fragmentManager;
+    private ProductDetailFragment productDetailFragment;
+    private FragmentTransaction transaction;
+
+    private String product_name;
+    private Boolean isLoadingFinish = false;
+    private int num = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,50 +58,69 @@ public class ProductInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // toolbar 왼쪽 버튼
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.resize_icon_back);
 
+        loading = findViewById(R.id.loading);
+        layout_content = findViewById(R.id.layout_content);
+
         // firebase storage
-//        storage = FirebaseStorage.getInstance();
-        storageRef = FirebaseStorage.getInstance("gs://mydear-bb10e.appspot.com/")
-                .getReference();
+        storage = FirebaseStorage.getInstance("gs://mydear-bb10e.appspot.com/");
+        storageRef = storage.getReference();
         productRef = storageRef.child("product");
 
+        product_name = "허니 앤 마카다미아 네이처 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+        productDetailFragment = new ProductDetailFragment(product_name);
+        fragmentManager = getSupportFragmentManager();
+
         iv_product = findViewById(R.id.iv_product);
-        iv_product_detail = findViewById(R.id.iv_produce_detail);
+//        iv_product_detail = findViewById(R.id.iv_produce_detail);
 
         btn_product_detail = findViewById(R.id.btn_product_detail);
         btn_product_ingredient = findViewById(R.id.btn_product_ingredient);
         btn_product_perfume = findViewById(R.id.btn_product_perfume);
 
-        getImage("허니");
+        getImage(product_name);
     }
 
     // firebase storage img 불러오기
     public void getImage(String folderName) {
         StorageReference productPathRef = storageRef.child("product/" + folderName + "/product.png");
-        StorageReference detailPathRef = storageRef.child("product/" + folderName + "/product.png");
-//        Glide.with(this).load(pathRef).into(iv_product);
+//        StorageReference detailPathRef = storageRef.child("product/" + folderName + "/product.png");
         productPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(getApplicationContext()).load(uri).into(iv_product);
+                loading.setVisibility(View.GONE);
+                layout_content.setVisibility(View.VISIBLE);
+                showFragment(num);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                loading.setVisibility(View.GONE);
+                layout_content.setVisibility(View.VISIBLE);
                 Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        detailPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getApplicationContext()).load(uri).into(iv_product_detail);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        detailPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Glide.with(getApplicationContext()).load(uri).into(iv_product_detail);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+
+    public void showFragment(int index) {
+        switch (index) {
+            case 1:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_layout, productDetailFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
+                break;
+        }
     }
 
     @Override
