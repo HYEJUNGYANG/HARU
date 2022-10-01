@@ -15,6 +15,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".survey.RecommendActivity"
+            android:exported="false" />
+        <activity
             android:name=".survey.PerfumeSelectActivity"
             android:exported="false" />
         <activity
@@ -31,9 +34,9 @@
             android:exported="false" />
         <activity
             android:name=".survey.SurveyActivity"
-            android:exported="false" /> <!-- survey.RecommendActivity -> MainActivity 꼭 바꾸기!! -->
+            android:exported="false" /> <!-- ProductInfoActivity -> MainActivity 꼭 바꾸기!! -->
         <activity
-            android:name=".survey.RecommendActivity"
+            android:name=".ProductInfoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
