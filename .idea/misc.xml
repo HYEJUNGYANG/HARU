@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/layout/fragment_allergy_yes.xml" value="0.284375" />
         <entry key="app/src/main/res/layout/fragment_product_detail.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/fragment_product_ingredient.xml" value="0.1625" />
+        <entry key="app/src/main/res/layout/fragment_product_perfume.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/fragment_survey_group1.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/fragment_survey_group2.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/fragment_survey_group3.xml" value="0.25" />

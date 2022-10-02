@@ -25,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mydear.haru.fragment.product.ProductDetailFragment;
 import com.mydear.haru.fragment.product.ProductIngredientFragment;
+import com.mydear.haru.fragment.product.ProductPerfumeFragment;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
@@ -47,6 +48,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private ProductDetailFragment productDetailFragment;
     private ProductIngredientFragment productIngredientFragment;
+    private ProductPerfumeFragment productPerfumeFragment;
     private FragmentTransaction transaction;
 
     private String product_name;
@@ -84,6 +86,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         product_name = "피오니 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
         productDetailFragment = new ProductDetailFragment(product_name);
         productIngredientFragment = new ProductIngredientFragment(product_name);
+        productPerfumeFragment = new ProductPerfumeFragment(product_name);
         fragmentManager = getSupportFragmentManager();
 
         iv_product = findViewById(R.id.iv_haru);
@@ -120,7 +123,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeButtonStyle(view, btn_product_detail, btn_product_ingredient);
-//                showFragment(3);
+                showFragment(3);
             }
         });
 
@@ -171,6 +174,10 @@ public class ProductInfoActivity extends AppCompatActivity {
             case 2:
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_layout, productIngredientFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
+                break;
+            case 3:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_layout, productPerfumeFragment).commitAllowingStateLoss();
                 break;
         }
     }
