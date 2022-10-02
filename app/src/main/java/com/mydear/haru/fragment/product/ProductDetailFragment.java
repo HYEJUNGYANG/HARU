@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -81,13 +82,16 @@ public class ProductDetailFragment extends Fragment {
     }
 
     private void getDetailImage() {
-        StorageReference productPathRef = storageRef.child("product/" + product_name + "/product.png");
+        StorageReference productPathRef = storageRef.child("product/" + product_name + "/detail.png");
         Log.d(TAG, "productPathRef: " + productPathRef.toString());
 
         productPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(activity).load(uri).into(iv_product_detail);
+                Glide.with(activity)
+                        .load(uri)
+                        .override(Target.SIZE_ORIGINAL)
+                        .into(iv_product_detail);
                 layout_loading.setVisibility(View.GONE);
                 layout_content.setVisibility(View.VISIBLE);
 

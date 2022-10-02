@@ -70,7 +70,15 @@ public class ProductInfoActivity extends AppCompatActivity {
         storageRef = storage.getReference();
         productRef = storageRef.child("product");
 
-        product_name = "허니 앤 마카다미아 네이처 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+        // 허니 앤 마카다미아 네이처 샴푸
+        // 바이오3 탈모완화 복합성 샴푸
+        // 센서티브 수딩 헤어로스 솔루션 샴푸
+        // 카페인 탈모샴푸
+        // 딥그린제이 어성초 탈모증상완화 샴푸
+        // 탈모증상완화 노세범 샴푸
+        product_name = "바이오3 탈모완화 복합성 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+        productDetailFragment = new ProductDetailFragment(product_name);
+        productIngredientFragment = new ProductIngredientFragment(product_name);
         fragmentManager = getSupportFragmentManager();
 
         iv_product = findViewById(R.id.iv_product);
@@ -154,12 +162,10 @@ public class ProductInfoActivity extends AppCompatActivity {
     public void showFragment(int index) {
         switch (index) {
             case 1:
-                productDetailFragment = new ProductDetailFragment(product_name);
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_layout, productDetailFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
                 break;
             case 2:
-                productIngredientFragment = new ProductIngredientFragment(product_name);
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_layout, productIngredientFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
                 break;
