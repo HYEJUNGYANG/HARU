@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +30,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
     private ConstraintLayout loading;
     private ConstraintLayout layout_content;
+    private ScrollView scroll;
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
@@ -38,6 +40,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     private Button btn_product_ingredient;
     private Button btn_product_perfume;
 
+    private ImageView iv_haru;
     private ImageView iv_product;
     private ImageView iv_product_detail;
 
@@ -64,6 +67,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         loading = findViewById(R.id.loading);
         layout_content = findViewById(R.id.layout_content);
+        scroll = findViewById(R.id.scroll);
 
         // firebase storage
         storage = FirebaseStorage.getInstance("gs://mydear-bb10e.appspot.com/");
@@ -76,10 +80,19 @@ public class ProductInfoActivity extends AppCompatActivity {
         // 카페인 탈모샴푸
         // 딥그린제이 어성초 탈모증상완화 샴푸
         // 탈모증상완화 노세범 샴푸
-        product_name = "바이오3 탈모완화 복합성 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+        // 피오니 샴푸
+        product_name = "피오니 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
         productDetailFragment = new ProductDetailFragment(product_name);
         productIngredientFragment = new ProductIngredientFragment(product_name);
         fragmentManager = getSupportFragmentManager();
+
+        iv_product = findViewById(R.id.iv_haru);
+        iv_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scrollFocusUpDown();
+            }
+        });
 
         iv_product = findViewById(R.id.iv_product);
 //        iv_product_detail = findViewById(R.id.iv_produce_detail);
@@ -128,7 +141,8 @@ public class ProductInfoActivity extends AppCompatActivity {
     // firebase storage img 불러오기
     public void getImage(String folderName) {
         StorageReference productPathRef = storageRef.child("product/" + folderName + "/product.png");
-//        StorageReference detailPathRef = storageRef.child("product/" + folderName + "/product.png");
+
+        // success
         productPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -137,6 +151,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 layout_content.setVisibility(View.VISIBLE);
                 showFragment(num);
             }
+            // fail
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -145,18 +160,6 @@ public class ProductInfoActivity extends AppCompatActivity {
                 Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-
-//        detailPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Glide.with(getApplicationContext()).load(uri).into(iv_product_detail);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     public void showFragment(int index) {
@@ -170,6 +173,10 @@ public class ProductInfoActivity extends AppCompatActivity {
                 transaction.replace(R.id.fragment_layout, productIngredientFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
                 break;
         }
+    }
+
+    public void scrollFocusUpDown() {
+        // 나중에 구현
     }
 
     @Override
