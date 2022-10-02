@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mydear.haru.fragment.product.ProductDetailFragment;
+import com.mydear.haru.fragment.product.ProductIngredientFragment;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
@@ -42,6 +43,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private ProductDetailFragment productDetailFragment;
+    private ProductIngredientFragment productIngredientFragment;
     private FragmentTransaction transaction;
 
     private String product_name;
@@ -69,7 +71,6 @@ public class ProductInfoActivity extends AppCompatActivity {
         productRef = storageRef.child("product");
 
         product_name = "허니 앤 마카다미아 네이처 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
-        productDetailFragment = new ProductDetailFragment(product_name);
         fragmentManager = getSupportFragmentManager();
 
         iv_product = findViewById(R.id.iv_product);
@@ -80,6 +81,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeButtonStyle(view, btn_product_ingredient, btn_product_perfume);
+                showFragment(1);
             }
         });
 
@@ -88,6 +90,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeButtonStyle(view, btn_product_detail, btn_product_perfume);
+                showFragment(2);
             }
         });
 
@@ -96,6 +99,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeButtonStyle(view, btn_product_detail, btn_product_ingredient);
+//                showFragment(3);
             }
         });
 
@@ -150,8 +154,14 @@ public class ProductInfoActivity extends AppCompatActivity {
     public void showFragment(int index) {
         switch (index) {
             case 1:
+                productDetailFragment = new ProductDetailFragment(product_name);
                 transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_layout, productDetailFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
+                break;
+            case 2:
+                productIngredientFragment = new ProductIngredientFragment(product_name);
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_layout, productIngredientFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
                 break;
         }
     }

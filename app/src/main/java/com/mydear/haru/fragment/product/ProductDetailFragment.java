@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,7 @@ public class ProductDetailFragment extends Fragment {
 
     private Activity activity;
 
+    private TextView tv_loading;
     private ImageView iv_product_detail;
 
     private FirebaseStorage storage;
@@ -67,6 +71,9 @@ public class ProductDetailFragment extends Fragment {
         layout_loading = view.findViewById(R.id.layout_loading);
         layout_content = view.findViewById(R.id.layout_content);
 
+        tv_loading = view.findViewById(R.id.tv_loading);
+        Log.d(TAG, "텍스트 길이: " + tv_loading.getText().toString().length());
+
         iv_product_detail = view.findViewById(R.id.iv_product_detail);
 
         storage = FirebaseStorage.getInstance("gs://mydear-bb10e.appspot.com/");
@@ -80,11 +87,10 @@ public class ProductDetailFragment extends Fragment {
         productPathRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.d(TAG, "텍스트 잘 받아와졌나: " + product_name);
-                // 왜 이미지가 안뜰까
                 Glide.with(activity).load(uri).into(iv_product_detail);
                 layout_loading.setVisibility(View.GONE);
                 layout_content.setVisibility(View.VISIBLE);
+
                 Toast.makeText(activity, "이미지 성공적", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
