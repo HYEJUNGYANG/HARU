@@ -83,7 +83,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         // 딥그린제이 어성초 탈모증상완화 샴푸
         // 탈모증상완화 노세범 샴푸
         // 피오니 샴푸
-        product_name = "피오니 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+        product_name = "허니 앤 마카다미아 네이처 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
         productDetailFragment = new ProductDetailFragment(product_name);
         productIngredientFragment = new ProductIngredientFragment(product_name);
         productPerfumeFragment = new ProductPerfumeFragment(product_name);

@@ -35,14 +35,304 @@
             android:id="@+id/tv_recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:text="&lt; 건성 두피에 추천해요 &gt;"
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="19dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="240dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/img_penta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recommend" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:text="건성 두피"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/circle_orange" />
+
+        <View
+            android:id="@+id/circle_orange"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="-45dp"
+            android:background="@drawable/color_circle_orange"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_circle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="백색의\n불투명한\n두피색상"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_orange"
+            app:layout_constraintEnd_toEndOf="@+id/circle_orange"
+            app:layout_constraintStart_toStartOf="@+id/circle_orange"
+            app:layout_constraintTop_toTopOf="@+id/circle_orange" />
+
+        <View
+            android:id="@+id/circle_purple"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/color_circle_purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_orange" />
+
+        <TextView
+            android:id="@+id/tv_circle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="각질, 비듬 생성 \n및 푸석한 모발"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_purple"
+            app:layout_constraintEnd_toEndOf="@+id/circle_purple"
+            app:layout_constraintStart_toStartOf="@+id/circle_purple"
+            app:layout_constraintTop_toTopOf="@+id/circle_purple" />
+
+        <View
+            android:id="@+id/circle_skyblue"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/color_circle_skyblue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_purple" />
+
+        <TextView
+            android:id="@+id/tv_circle3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="건조함으로\n인한 상"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_skyblue"
+            app:layout_constraintEnd_toEndOf="@+id/circle_skyblue"
+            app:layout_constraintStart_toStartOf="@+id/circle_skyblue"
+            app:layout_constraintTop_toTopOf="@+id/circle_skyblue" />
+
+        <View
+            android:id="@+id/circle_green"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/color_circle_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_yellow" />
+
+        <TextView
+            android:id="@+id/tv_circle4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="모공 막힘 현상\n(각질)"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_green"
+            app:layout_constraintEnd_toEndOf="@+id/circle_green"
+            app:layout_constraintStart_toStartOf="@+id/circle_green"
+            app:layout_constraintTop_toTopOf="@+id/circle_green" />
+
+        <View
+            android:id="@+id/circle_yellow"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/color_circle_yellow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_orange" />
+
+        <TextView
+            android:id="@+id/tv_circle5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="가는 모발과\n거친 두피\n표먄"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/circle_yellow"
+            app:layout_constraintEnd_toEndOf="@+id/circle_yellow"
+            app:layout_constraintStart_toStartOf="@+id/circle_yellow"
+            app:layout_constraintTop_toTopOf="@+id/circle_yellow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/circle_green">
+
+            <!-- flower -->
+            <LinearLayout
+                android:id="@+id/container_flower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_perfume_flower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/perfume_flower_bg"
+                    android:text="꽃향"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_perfume_flower_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="- 장미향(라비앙로즈)\n- 아카시아향\n- 웨딩부케향\n- 스위트피오니향\n- 화이트 머스크향"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+            <!-- fruit -->
+            <LinearLayout
+                android:id="@+id/container_fruit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_perfume_fruit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/perfume_fruit_bg"
+                    android:text="과일향"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_perfume_fruit_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="- 자몽향\n- 복숭아향(퍼지네이블)\n- 베리향(블랙베리베이)\n- 레몬버베나향\n- 리치향(리치앤애프리콧)"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+            <!-- soap -->
+            <LinearLayout
+                android:id="@+id/container_soap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_perfume_soap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/perfume_soap_bg"
+                    android:text="비누&amp;코튼향"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_perfume_soap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="- 베이비파우더향\n- 코튼블루향\n- 블랑향"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+            <!-- nature -->
+            <LinearLayout
+                android:id="@+id/container_nature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_perfume_nature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@color/perfume_nature_bg"
+                    android:text="자연향"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/tv_perfume_nature_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="- 자스민우디향"
+                    android:textColor="@color/black"
+                    android:textSize="17dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

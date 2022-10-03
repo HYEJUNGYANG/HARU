@@ -14,4 +14,9 @@
     <color name="haru_mainColor">#dcdef0</color>
     <color name="dividing_line">#CCD2F0</color>
     <color name="blue">#1187CF</color>
+
+    <color name="perfume_flower_bg">#FECCBE</color>
+    <color name="perfume_fruit_bg">#FEEBB6</color>
+    <color name="perfume_soap_bg">#B8E9FF</color>
+    <color name="perfume_nature_bg">#DDECCA</color>
 </resources>
