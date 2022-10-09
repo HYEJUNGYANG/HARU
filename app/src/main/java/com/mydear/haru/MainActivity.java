@@ -1,109 +1,58 @@
 package com.mydear.haru;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.mydear.haru.survey.SelectSurveyActivity;
-import com.mydear.haru.survey.SurveyResultActivity;
+import com.mydear.haru.survey.SurveyActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textView;
-
-    private Dialog surveyDialog;
+    private Button btn_search;
+    private Button btn_survey;
+    private Button btn_ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        surveyDialog = new Dialog(MainActivity.this);  // 초기화
-        surveyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  // 타이틀 제거
-        surveyDialog.setContentView(R.layout.activity_survey_dialog); // xml 레이아웃
+        getSupportActionBar().setDisplayShowTitleEnabled(false);  // toolbar title 제거
 
-        showSurveyDialog();
-
-        Button btn_open = findViewById(R.id.btn_open);
-        btn_open.setOnClickListener(new View.OnClickListener() {
+        btn_search = findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSurveyDialog();
+                Toast.makeText(MainActivity.this, "두피케어 제품 찾기 버튼을 클릭하셨습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        Button btn_test = findViewById(R.id.btn_test);
-        btn_test.setOnClickListener(new View.OnClickListener() {
+        // 버튼 잘 눌리는지 테스트 해보기 위함
+        btn_survey = findViewById(R.id.btn_survey);
+        btn_survey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SurveyResultActivity.class);
+                Intent intent = new Intent(MainActivity.this, SurveyActivity.class);
                 startActivity(intent);
+                overridePendingTransition(0,0);
+//                finish();
             }
         });
 
-    }
-
-    public void showSurveyDialog() {
-        surveyDialog.show();
-
-        // 주의사항!! 여기서는 findViewById 앞에 다이얼로그 이름을 붙여줘야 한다
-
-        Button btn_yes = surveyDialog.findViewById(R.id.btn_yes);
-        btn_yes.setOnClickListener(new View.OnClickListener() {
+        btn_ingredients = findViewById(R.id.btn_ingredients);
+        btn_ingredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SelectSurveyActivity.class);
-                startActivity(intent);
-                surveyDialog.dismiss();
-            }
-        });
-
-        Button btn_no = surveyDialog.findViewById(R.id.btn_no);
-        btn_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                surveyDialog.dismiss();
+                Toast.makeText(MainActivity.this, "화장품 성분 분석하기 버튼을 클릭하셨습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

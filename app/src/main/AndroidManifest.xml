@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mydear.haru">
+    package="com.mydear.haru" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +11,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Haru_Survey">
+        android:theme="@style/Theme.Haru_Survey" >
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProductInfoActivity"
             android:exported="false" />
         <activity
             android:name=".survey.RecommendActivity"
@@ -31,14 +34,14 @@
             android:name=".survey.SurveyResultActivity"
             android:exported="false" />
         <activity
-            android:name=".survey.SelectSurveyActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".survey.SurveyActivity"
             android:exported="false" /> <!-- ProductInfoActivity -> MainActivity 꼭 바꾸기!! -->
         <activity
-            android:name=".ProductInfoActivity"
-            android:exported="true">
+            android:name=".SelectLoginJoinActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
