@@ -38,7 +38,7 @@
             android:exported="false" />
         <activity
             android:name=".survey.SurveyActivity"
-            android:exported="false" /> <!-- ProductInfoActivity -> MainActivity 꼭 바꾸기!! -->
+            android:exported="false" /> <!-- SelectLoginJoinActivity -> MainActivity 꼭 바꾸기!! -->
         <activity
             android:name=".SelectLoginJoinActivity"
             android:exported="true" >
