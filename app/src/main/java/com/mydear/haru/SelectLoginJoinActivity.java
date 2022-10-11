@@ -21,6 +21,9 @@ import android.widget.TextView;
 
 public class SelectLoginJoinActivity extends AppCompatActivity {
 
+    private Button btn_login;
+    private Button btn_join;
+
 
     private Dialog surveyDialog;
 
@@ -35,6 +38,16 @@ public class SelectLoginJoinActivity extends AppCompatActivity {
 
         // 상태바 투명처리
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        btn_login = findViewById(R.id.btn_login);
+        btn_join = findViewById(R.id.btn_join);
+        btn_join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SelectLoginJoinActivity.this, JoinActivity.class);
+                startActivity(intent);
+            }
+        });
 
 //        surveyDialog = new Dialog(SelectLoginJoinActivity.this);  // 초기화
 //        surveyDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);  // 타이틀 제거
