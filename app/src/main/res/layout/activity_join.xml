@@ -20,7 +20,7 @@
         android:background="@drawable/icon_haru"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/tv_join_title"
@@ -62,17 +62,29 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_id" />
 
     <TextView
+        android:id="@+id/tv_id_filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:visibility="invisible"
+        android:text="아이디를 입력해주세요."
+        android:textColor="#f00"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_id" />
+
+    <TextView
         android:id="@+id/tv_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="69dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="비밀번호"
         android:textColor="@color/black"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_id" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_id_filled" />
 
     <EditText
         android:id="@+id/et_pw"
@@ -88,17 +100,29 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_pw" />
 
     <TextView
+        android:id="@+id/tv_pw_filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:visibility="invisible"
+        android:text="비밀번호를 입력해주세요."
+        android:textColor="#f00"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+    <TextView
         android:id="@+id/tv_pw_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="69dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="비밀번호 확인"
         android:textColor="@color/black"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_pw_filled" />
 
     <EditText
         android:id="@+id/et_pw_check"
@@ -150,6 +174,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_name_filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:visibility="invisible"
+        android:text="닉네임을 입력해주세요."
+        android:textColor="#f00"
+        android:textSize="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_join"
