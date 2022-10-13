@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class JoinActivity extends AppCompatActivity {
 
     private ScrollView scrollView;
@@ -67,7 +70,12 @@ public class JoinActivity extends AppCompatActivity {
         btn_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String id = et_id.getText().toString();
+                Log.d(TAG, "암호화 전 비밀번호: " + id);
                 Toast.makeText(JoinActivity.this, "회원가입", Toast.LENGTH_SHORT).show();
+
+                id = getHash(id);
+                Log.d(TAG, "암호화 후 비밀번호: " + id);
             }
         });
 
@@ -222,7 +230,7 @@ public class JoinActivity extends AppCompatActivity {
                     scrollView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            scrollView.smoothScrollBy(0, 800);
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
                         }
                     }, 100);
                 }
@@ -231,6 +239,27 @@ public class JoinActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static String getHash(String str) {
+        String digest = "";
+        try{
+
+            //암호화
+            MessageDigest sh = MessageDigest.getInstance("SHA-256"); // SHA-256 해시함수를 사용
+            sh.update(str.getBytes()); // str의 문자열을 해싱하여 sh에 저장
+            byte byteData[] = sh.digest(); // sh 객체의 다이제스트를 얻는다.
+
+            //얻은 결과를 string으로 변환
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0 ; i < byteData.length ; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            digest = sb.toString();
+        }catch(NoSuchAlgorithmException e) {
+            e.printStackTrace(); digest = null;
+        }
+        return digest;
     }
 
     public void checkAllValue() {
