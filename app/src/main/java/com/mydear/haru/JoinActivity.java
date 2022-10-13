@@ -127,7 +127,7 @@ public class JoinActivity extends AppCompatActivity {
                     pw_value = true;
                     tv_pw_filled.setVisibility(View.INVISIBLE);
 
-                    if (!str_pw.equals(str_pw_check)) {
+                    if (str_pw_check.length() != 0 && !str_pw.equals(str_pw_check)) {
                         pw_check_value = false;
                         tv_wrong.setVisibility(View.VISIBLE);
                     }
