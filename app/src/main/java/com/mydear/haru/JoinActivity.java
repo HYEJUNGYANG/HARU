@@ -122,9 +122,19 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 str_pw = et_pw.getText().toString();
-                if(str_pw.length() != 0) {
+                str_pw_check = et_pw_check.getText().toString();
+                if (str_pw.length() != 0) {
                     pw_value = true;
                     tv_pw_filled.setVisibility(View.INVISIBLE);
+
+                    if (!str_pw.equals(str_pw_check)) {
+                        pw_check_value = false;
+                        tv_wrong.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        pw_check_value = true;
+                        tv_wrong.setVisibility(View.INVISIBLE);
+                    }
                 }
                 else {
                     pw_value = false;
