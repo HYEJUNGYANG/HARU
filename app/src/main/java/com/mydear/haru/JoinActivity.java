@@ -255,12 +255,12 @@ public class JoinActivity extends AppCompatActivity {
         String digest = "";
         try{
 
-            //암호화
+            // 암호화
             MessageDigest sh = MessageDigest.getInstance("SHA-256"); // SHA-256 해시함수를 사용
             sh.update(str.getBytes()); // str의 문자열을 해싱하여 sh에 저장
             byte byteData[] = sh.digest(); // sh 객체의 다이제스트를 얻는다.
 
-            //얻은 결과를 string으로 변환
+            // 얻은 결과를 string으로 변환
             StringBuffer sb = new StringBuffer();
             for(int i = 0 ; i < byteData.length ; i++) {
                 sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
@@ -298,6 +298,7 @@ public class JoinActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
 //        finish();
     }
 }

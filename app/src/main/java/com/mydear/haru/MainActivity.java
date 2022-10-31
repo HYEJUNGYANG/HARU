@@ -1,19 +1,27 @@
 package com.mydear.haru;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mydear.haru.survey.SurveyActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private EditText et_search;
 
-    private Button btn_search;
     private Button btn_survey;
     private Button btn_ingredients;
 
@@ -26,12 +34,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);  // toolbar title 제거
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24);
 
-        btn_search = findViewById(R.id.btn_search);
-        btn_search.setOnClickListener(new View.OnClickListener() {
+        et_search = findViewById(R.id.et_search);
+        et_search.setCursorVisible(false);  // == et_search.setInputType(EditorInfo.TYPE_NULL)
+        et_search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "두피케어 제품 찾기 버튼을 클릭하셨습니다.", Toast.LENGTH_SHORT).show();
+            public void onFocusChange(View view, boolean b) {
+                if(b) {
+                    Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                    et_search.clearFocus();
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+                }
             }
         });
 
@@ -54,5 +70,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "화장품 성분 분석하기 버튼을 클릭하셨습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(this, "메뉴 버튼 클릭! ✨", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
