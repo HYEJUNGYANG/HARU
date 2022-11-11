@@ -51,6 +51,7 @@
         <entry key="app/src/main/res/layout/activity_survey.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/activity_survey_dialog.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_survey_result.xml" value="0.28541666666666665" />
+        <entry key="app/src/main/res/layout/drawer_navbar.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/layout/fragment_allergy_default.xml" value="0.284375" />
         <entry key="app/src/main/res/layout/fragment_allergy_yes.xml" value="0.284375" />
         <entry key="app/src/main/res/layout/fragment_product_detail.xml" value="0.2708333333333333" />
@@ -60,6 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_survey_group2.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/fragment_survey_group3.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_survey_group4.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/layout/navbar.xml" value="0.26458333333333334" />
         <entry key="app/src/main/res/menu/menu_recommend.xml" value="0.2703125" />
       </map>
     </option>

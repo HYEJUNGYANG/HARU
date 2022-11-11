@@ -40,13 +40,13 @@
             android:name=".survey.SurveyResultActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SelectLoginJoinActivity"
             android:exported="false" />
         <activity
             android:name=".survey.SurveyActivity"
             android:exported="false" /> <!-- SelectLoginJoinActivity -> MainActivity 꼭 바꾸기!! -->
         <activity
-            android:name=".SelectLoginJoinActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

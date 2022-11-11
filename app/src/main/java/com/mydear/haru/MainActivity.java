@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.mydear.haru.survey.SurveyActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn_survey;
     private Button btn_ingredients;
+
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private View drawerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);  // toolbar title 제거
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24);
+
+        navigationView = findViewById(R.id.nav);
+        navigationView.setItemIconTintList(null);
+
+        drawerLayout = findViewById(R.id.main_layout);
+        drawerView = (View)findViewById(R.id.navbar);
+
+        View nav_header_view = navigationView.getHeaderView(0);
+        //drawerLayout.setDrawerListener(listener);
+        drawerLayout.addDrawerListener(listener);
+        drawerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         et_search = findViewById(R.id.et_search);
         et_search.setCursorVisible(false);  // == et_search.setInputType(EditorInfo.TYPE_NULL)
@@ -72,11 +94,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+            // 슬라이드 했을 때
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+            // Drawer가 오픈된 상황일 때 호출
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+            // 닫힌 상황일 때 호출
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+            // 특정상태가 변경될 때 호출
+        }
+    };
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Toast.makeText(this, "메뉴 버튼 클릭! ✨", Toast.LENGTH_SHORT).show();
+                drawerLayout.openDrawer(drawerView);
                 break;
             default:
                 break;
