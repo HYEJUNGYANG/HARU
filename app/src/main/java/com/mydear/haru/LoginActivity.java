@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (id.equals(testHashId) && pw.equals(testHashPw)) {
                     Toast.makeText(LoginActivity.this, "로그인 성공 ✨", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    finishAffinity();
+                    finishAffinity();  // 기존에 있던 Activity 모두 제거
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     overridePendingTransition(0, 0);
