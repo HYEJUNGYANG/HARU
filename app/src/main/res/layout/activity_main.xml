@@ -126,7 +126,7 @@
         android:id="@+id/nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:layout_gravity="left"
         app:headerLayout="@layout/drawer_navbar"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

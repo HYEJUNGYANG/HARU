@@ -1,6 +1,7 @@
 package com.mydear.haru;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +17,9 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -27,9 +31,15 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_survey;
     private Button btn_ingredients;
 
+    private ImageView btn_close;
+    private LinearLayout layout_type;
+    private LinearLayout layout_thumb;
+    private LinearLayout layout_notice;
+    private LinearLayout layout_logout;
+
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private View drawerView;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +57,31 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setItemIconTintList(null);
 
         drawerLayout = findViewById(R.id.main_layout);
-        drawerView = (View)findViewById(R.id.navbar);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name);
+        drawerToggle.syncState();
 
         View nav_header_view = navigationView.getHeaderView(0);
-        //drawerLayout.setDrawerListener(listener);
-        drawerLayout.addDrawerListener(listener);
-        drawerView.setOnTouchListener(new View.OnTouchListener() {
+        btn_close = nav_header_view.findViewById(R.id.btn_close);
+        btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
+            public void onClick(View view) {
+                drawerLayout.closeDrawer(navigationView);
+            }
+        });
+
+        layout_type = nav_header_view.findViewById(R.id.layout_type);
+        layout_type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "나의 두피 타입 버튼을 클릭하셨습니다 ☆*: .｡. o(≧▽≦)o .｡.:*☆", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        layout_logout = nav_header_view.findViewById(R.id.layout_logout);
+        layout_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "로그아웃 버튼을 클릭하셨습니다 ☆*: .｡. o(≧▽≦)o .｡.:*☆", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,34 +120,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-            // 슬라이드 했을 때
-        }
-
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-            // Drawer가 오픈된 상황일 때 호출
-        }
-
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-            // 닫힌 상황일 때 호출
-        }
-
-        @Override
-        public void onDrawerStateChanged(int newState) {
-            // 특정상태가 변경될 때 호출
-        }
-    };
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Toast.makeText(this, "메뉴 버튼 클릭! ✨", Toast.LENGTH_SHORT).show();
-                drawerLayout.openDrawer(drawerView);
                 break;
             default:
                 break;
