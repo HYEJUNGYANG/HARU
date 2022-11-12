@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mydear.haru.MainActivity;
 import com.mydear.haru.SelectLoginJoinActivity;
 import com.mydear.haru.R;
 
@@ -70,11 +71,12 @@ public class RecommendActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(RecommendActivity.this, SelectLoginJoinActivity.class);
+                Intent intent = new Intent(RecommendActivity.this, MainActivity.class);
                 // 이후 여기에 값 전달 or 값 저장 하게 설정 해두기
                 StyleableToast.makeText(RecommendActivity.this, "HOME ✨", Toast.LENGTH_SHORT, R.style.allCheckToast).show();
                 startActivity(intent);
-                finish();
+//                finish();
+                finishAffinity();
                 return true;
             case R.id.menu_filter:
                 // 이후에 filter 클릭시 액티비티 전환되게
