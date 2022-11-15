@@ -6,31 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity">
 
-
-
-    <EditText
-        android:id="@+id/et_searchBar"
+    <LinearLayout
+        android:id="@+id/container_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Search"
-        app:layout_constraintTop_toBottomOf="@+id/et_searchBar"
-        tools:layout_editor_absoluteX="16dp" />
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/icon_back" />
 
-    <TextView
-        android:id="@+id/tv_result"
+        <EditText
+            android:id="@+id/et_searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_round_purple_searchver"
+            android:hint="검색어 입력"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_search"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="visible"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/icon_search" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <ImageView
+                android:id="@+id/iv_filter"
+                android:layout_width="66dp"
+                android:layout_height="30dp"
+                android:background="@drawable/icon_filter_box_and_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:text="필터"
+                android:textColor="@color/white"
+                android:textSize="13dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_filter"
+                app:layout_constraintEnd_toEndOf="@+id/iv_filter"
+                app:layout_constraintTop_toTopOf="@+id/iv_filter" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <!-- fragment -->
+    <LinearLayout
+        android:id="@+id/fragment_search"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:text="empty"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_search"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container_search">
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

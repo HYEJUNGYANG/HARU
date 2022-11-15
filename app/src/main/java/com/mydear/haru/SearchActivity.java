@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,8 +24,9 @@ public class SearchActivity extends AppCompatActivity {
 
     EditText et_searchBar;
     Button btn_search;
-    TextView tv_result;
+//    TextView tv_result;
     public DatabaseReference mDatabase;
+    private ImageView btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,15 @@ public class SearchActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         et_searchBar = (EditText)findViewById(R.id.et_searchBar);
-        tv_result = (TextView)findViewById(R.id.tv_result);
+//        tv_result = (TextView)findViewById(R.id.tv_result);
+
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         btn_search = (Button)findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
@@ -74,20 +84,21 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 }
 
-                updateResult(res);
+//                updateResult(res);
             }
         });
     }
 
     public void updateResult(ArrayList<String> res) {
-        tv_result.setText("");
-
-        String temp = "";
-        for(int i = 0; i < res.size(); i++) {
-            temp += res.get(i);
-            temp += "\n";
-        }
-
-        tv_result.setText(temp);
+//        tv_result.setText("");
+//
+//        String temp = "";
+//        for(int i = 0; i < res.size(); i++) {
+//            temp += res.get(i);
+//            temp += "\n";
+//        }
+//
+//        tv_result.setText(temp);
     }
+
 }
