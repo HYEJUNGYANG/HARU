@@ -2,9 +2,13 @@ package com.mydear.haru;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mydear.haru.fragment.search.SearchProductResultFragment;
+import com.mydear.haru.fragment.search.SearchWordFragment;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -28,6 +34,11 @@ public class SearchActivity extends AppCompatActivity {
     public DatabaseReference mDatabase;
     private ImageView btn_back;
 
+    private FragmentManager fragmentManager;
+    private SearchWordFragment searchWordFragment;
+    private SearchProductResultFragment searchProductResultFragment;
+    private FragmentTransaction transaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +46,17 @@ public class SearchActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        fragmentManager = getSupportFragmentManager();
+        searchWordFragment = new SearchWordFragment();
+        searchProductResultFragment = new SearchProductResultFragment();
+
         et_searchBar = (EditText)findViewById(R.id.et_searchBar);
+        et_searchBar.requestFocus();
+        // 키보드 띄우기
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        showFragment(2);
 //        tv_result = (TextView)findViewById(R.id.tv_result);
 
         btn_back = findViewById(R.id.btn_back);
@@ -57,10 +78,18 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+    public void showFragment(int index) {
+
+        switch (index) {
+            case 1:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_search, searchWordFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
+                break;
+            case 2:
+                transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_search, searchProductResultFragment).commitAllowingStateLoss(); //commitAllowingStateLoss();
+                break;
+        }
     }
 
     public void search(String keyword) {
@@ -87,6 +116,12 @@ public class SearchActivity extends AppCompatActivity {
 //                updateResult(res);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
 
     public void updateResult(ArrayList<String> res) {
