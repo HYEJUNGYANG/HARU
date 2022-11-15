@@ -4,9 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Haru_Survey.iml" filepath="$PROJECT_DIR$/.idea/modules/Haru_Survey.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Haru_Survey.app.unitTest.iml" />
     </modules>
   </component>
 </project>
