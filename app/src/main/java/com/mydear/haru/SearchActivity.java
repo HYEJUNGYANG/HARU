@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,10 +30,11 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    EditText et_searchBar;
-    Button btn_search;
-//    TextView tv_result;
     public DatabaseReference mDatabase;
+
+    private EditText et_searchBar;
+    private Button btn_search;
+//    TextView tv_result;
     private ImageView btn_back;
 
     private FragmentManager fragmentManager;
