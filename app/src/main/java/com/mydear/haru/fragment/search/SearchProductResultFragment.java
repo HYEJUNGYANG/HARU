@@ -35,6 +35,11 @@ public class SearchProductResultFragment extends Fragment {
     private ArrayList<Product> arrayList;
     private DatabaseReference mDatabase;
 
+    private boolean isBrand = false;
+    private boolean isName = false;
+    private boolean isURL = false;
+    private boolean isAll = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,25 +86,36 @@ public class SearchProductResultFragment extends Fragment {
 
 
         arrayList.clear();
-        mDatabase.child("Database").child("MyDear").child("products").child("0").get()
-                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
+        for (int i=0; i<10; i++) {
+            Product product = new Product();
+            mDatabase.child("Database").child("MyDear").child("products").child("0").child("brand").get()
+                    .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                return;
+                            }
 //                        q1.setText(task.getResult().getValue().toString());
-                        Log.e(TAG, "값 확인용 " + task.getResult().getValue() );
-                        Product product = task.getResult().getValue(Product.class);
-                        arrayList.add(product);
-                        Log.e(TAG, "product값" + product.getIv_product() );
-                        adapter.notifyDataSetChanged();  // 리스트 저장 및 새로고침
-                    }
-                });
+                            Log.e(TAG, "값 확인용 " + task.getResult().getValue());
+                            product.setTv_brand(task.getResult().getValue().toString());
 
-
+//                        arrayList.add(product);
+//                        Log.e(TAG, "product값" + product.getIv_product() );
+                        }
+                    });
+        }
 
         adapter = new ProductAdapter(arrayList, view.getContext());
         recyclerView.setAdapter(adapter);
+    }
+
+    public boolean callback(Product product) {
+        isAll = isBrand && isName && isURL;
+        if (isAll) {
+            arrayList.add(product);
+            adapter.notifyDataSetChanged();  // 리스트 저장 및 새로고침
+            return true;
+        }
+        return false;
     }
 }

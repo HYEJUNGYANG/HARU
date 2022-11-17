@@ -115,7 +115,9 @@ public class MainActivity extends AppCompatActivity {
         btn_ingredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "화장품 성분 분석하기 버튼을 클릭하셨습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, OCRActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
             }
         });
     }

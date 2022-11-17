@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Haru_Survey">
         <activity
+            android:name=".OCRActivity"
+            android:exported="false" />
+        <activity
             android:name=".SearchActivity"
             android:exported="false" />
         <activity

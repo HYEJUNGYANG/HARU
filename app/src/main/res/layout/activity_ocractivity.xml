@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OCRActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="화장품 성분 분석"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:textStyle="bold"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!--  초기 화면  -->
+    <LinearLayout
+        android:id="@+id/layout_ex"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="사용 중이신 제품이나 사용하고자 하는 제품의\n이미지 인식을 통해 해당 제품의 성분에 대한 정보를 알려주는 기능입니다."
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="#292929"/>
+
+        <!--  이미지 겹치게 하기 위해서  -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_ex"
+                android:layout_width="203dp"
+                android:layout_height="424dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/img_photo_ex"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_line"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="140dp"
+                android:background="@drawable/rect_line_yellow"
+                app:layout_constraintEnd_toEndOf="@+id/iv_ex"
+                app:layout_constraintStart_toStartOf="@+id/iv_ex"
+                app:layout_constraintTop_toTopOf="@+id/iv_ex" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_description2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="위의 예시처럼 성분 정보를 알고 싶은 화장품을\n이미지 인식기능에 제품명이 잘 보이도록 촬영해주세요."
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="#292929"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_camera"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="촬영하러 가기"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:background="@drawable/edit_round_navi"/>
+
+        <ImageView
+            android:id="@+id/iv_bottom_haru"
+            android:layout_marginTop="60dp"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_bottom_haru_logo"/>
+
+    </LinearLayout>
+
+    <!--  사진 촬영 후 크롭 화면  -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_crop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_crop_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="* 촬영된 사진을 제품명만 보이도록 잘라주세요."
+            android:textColor="#FF0000"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_crop"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="40dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/icon_haru"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_crop_description" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_re"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="15dp"
+                android:text="다시 촬영하기"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:background="@drawable/edit_round_navi"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_submit"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="15dp"
+                android:text="완료하기"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:background="@drawable/edit_round_navi"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--  이미지 인식 결과 화면  -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f6f7ff">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_step1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="STEP 1"
+                android:textColor="#5d6dbf"
+                android:textSize="17dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="이미지 인식으로 제품찾기"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_step1" />
+
+            <TextView
+                android:id="@+id/tv_notice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="30dp"
+                android:gravity="center"
+                android:text="인식된 텍스트 영역이 올바른지 확인해주세요."
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:text="이미지"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_container" />
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_img" />
+
+        <TextView
+            android:id="@+id/tv_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="40dp"
+            android:text="인식된 TXT"
+            android:textSize="13dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_result" />
+
+        <TextView
+            android:id="@+id/tv_txt_result"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="center"
+            android:text="라보에이치 탈모증상완화 샴푸 두피강화"
+            android:background="@drawable/edit_round_purple_txt_ver"
+            android:textColor="#4C4C4C"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_txt"/>
+
+        <TextView
+            android:id="@+id/tv_write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="50dp"
+            android:text="* 제품명을 직접 적을 수 있어요."
+            android:textSize="14dp"
+            android:textColor="#595959"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_txt_result" />
+
+        <EditText
+            android:id="@+id/et_write"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="center"
+            android:background="@drawable/edit_round_white_write_ver"
+            android:text="라보에이치 탈모증상완화 샴푸 두피강화"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_write" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_analysis"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/edit_round_navi"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+            android:paddingLeft="30dp"
+            android:paddingRight="20dp"
+            android:text="제품 분석하러 가기"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/iv_haru_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_haru_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_bottom_haru_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

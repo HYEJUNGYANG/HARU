@@ -1,14 +1,18 @@
 package com.mydear.haru;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,8 +23,10 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mydear.haru.fragment.search.SearchProductResultFragment;
 import com.mydear.haru.fragment.search.SearchWordFragment;
 
@@ -29,8 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
-
-    public DatabaseReference mDatabase;
 
     private EditText et_searchBar;
     private Button btn_search;
@@ -41,6 +45,8 @@ public class SearchActivity extends AppCompatActivity {
     private SearchWordFragment searchWordFragment;
     private SearchProductResultFragment searchProductResultFragment;
     private FragmentTransaction transaction;
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
