@@ -27,7 +27,7 @@
         android:id="@+id/layout_ex"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <TextView
@@ -124,10 +124,9 @@
         <ImageView
             android:id="@+id/iv_crop"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/icon_haru"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_crop_description" />
@@ -174,6 +173,7 @@
         android:id="@+id/layout_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:background="#f6f7ff">
 
         <androidx.constraintlayout.widget.ConstraintLayout
