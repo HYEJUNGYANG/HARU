@@ -105,7 +105,7 @@ public class SearchProductResultFragment extends Fragment {
                     });
         }
 
-        adapter = new ProductAdapter(arrayList, view.getContext());
+//        adapter = new ProductAdapter(arrayList, view.getContext());
         recyclerView.setAdapter(adapter);
     }
 

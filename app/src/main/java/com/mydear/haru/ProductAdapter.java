@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,54 +16,97 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.CustomViewHolder> {
+public class ProductAdapter extends BaseAdapter {
 
-    private ArrayList<Product> arrayList;
-    private Context context;
-    private String productName;  // 상품 이름 받아옴
+    private Context mContext;
 
-    public ProductAdapter(ArrayList<Product> arrayList, Context context) {
-        this.arrayList = arrayList;
-        this.context = context;
-//        this.productName = productName;
+    private int index;
+    private ArrayList<Product> list;
+
+    private OnClickListener clickListener;
+
+    public interface OnClickListener{ // 인터페이스 정의
+        void onClick(int index, String name, String brand, String imageURL, String detailURL);
     }
 
+    public ProductAdapter() {
+        list = new ArrayList<Product>();
+        mContext = null;
+    }
 
-    @NonNull
+    public ProductAdapter(Context context) {
+        list = new ArrayList<Product>();
+        this.mContext = context;
+    }
+
+    public void addProduct(String name, String brand, String imageURL, String detailURL, OnClickListener clickListener) {
+        Product product = new Product(name, brand, imageURL, detailURL);
+        list.add(product);
+        this.clickListener = clickListener;
+    }
+
+    public void emptyList() {
+        list.clear();
+    }
+
     @Override
-    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_search_product, parent, false);
-        CustomViewHolder holder = new CustomViewHolder(view);
-
-        return holder;
+    public int getCount() {
+        return list.size();
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        // 매칭시켜줌
-        Glide.with(holder.itemView)
-                .load(arrayList.get(position).getIv_product())
-                .into(holder.iv_imageURL);
-        // Image 관련 코드 나중에 꼭 넣기
-        holder.tv_brand.setText(arrayList.get(position).getTv_brand());
-        holder.tv_name.setText(arrayList.get(position).getTv_product_name());
+    public Object getItem(int i) {
+        return list.get(i);
     }
 
     @Override
-    public int getItemCount() {
-        return (arrayList != null ? arrayList.size() : 0);
+    public long getItemId(int i) {
+        return i;
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_imageURL;
-        TextView tv_brand;
-        TextView tv_name;
-
-        public CustomViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.iv_imageURL = itemView.findViewById(R.id.iv_imageURL);
-            this.tv_brand = itemView.findViewById(R.id.tv_brand);
-            this.tv_name = itemView.findViewById(R.id.tv_name);
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService((Context.LAYOUT_INFLATER_SERVICE));
+            convertView = inflater.inflate(R.layout.list_search_product, parent, false);
         }
+
+        TextView txtTextName = (TextView) convertView.findViewById(R.id.tv_name);
+        TextView txtTextBrand = (TextView) convertView.findViewById(R.id.tv_brand);
+        ImageView iv_imageURL = (ImageView) convertView.findViewById(R.id.iv_imageURL);
+
+        Product product = list.get(position);
+
+        txtTextName.setText(product.getTv_product_name());
+        txtTextBrand.setText(product.getTv_brand());
+
+        loadFireBaseImage(product.getImageURL(), iv_imageURL);
+
+        txtTextName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClick(position, product.getTv_product_name(), product.getTv_brand(), product.getImageURL(), product.getDetailURL());
+            }
+        });
+
+        txtTextBrand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClick(position, product.getTv_product_name(), product.getTv_brand(), product.getImageURL(), product.getDetailURL());
+            }
+        });
+
+        iv_imageURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onClick(position, product.getTv_product_name(), product.getTv_brand(), product.getImageURL(), product.getDetailURL());
+            }
+        });
+
+        return convertView;
+    }
+
+    private void loadFireBaseImage(String imgFileName, ImageView view) {
+        Glide.with((SearchActivity)mContext).load(imgFileName).into(view);
     }
 }

@@ -1,5 +1,7 @@
 package com.mydear.haru;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,10 +9,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -83,7 +87,9 @@ public class ProductInfoActivity extends AppCompatActivity {
         // 딥그린제이 어성초 탈모증상완화 샴푸
         // 탈모증상완화 노세범 샴푸
         // 피오니 샴푸
-        product_name = "허니 앤 마카다미아 네이처 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+//        product_name = "허니 앤 마카다미아 네이처 샴푸";  // 임시로! 이후에 이전 액티비티에서 이름 밥아오기
+        Intent productIntent = getIntent();
+        product_name = productIntent.getStringExtra("name");
         productDetailFragment = new ProductDetailFragment(product_name);
         productIngredientFragment = new ProductIngredientFragment(product_name);
         productPerfumeFragment = new ProductPerfumeFragment(product_name);
@@ -161,6 +167,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 loading.setVisibility(View.GONE);
                 layout_content.setVisibility(View.VISIBLE);
                 Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "실패: ", e);
             }
         });
     }
@@ -190,8 +197,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Toast.makeText(this, "BACK!! ✨", Toast.LENGTH_SHORT).show(); // Main으로 둘 때 잠시만
-//                onBackPressed();
+                onBackPressed();
                 return true;
             default:
                 break;
