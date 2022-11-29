@@ -172,6 +172,9 @@ public class SearchActivity extends AppCompatActivity {
                         Log.e(TAG, detailURL);
                         Intent intent = new Intent(SearchActivity.this, ProductInfoActivity.class);
                         intent.putExtra("name", name);
+                        // 키보드 숨기기
+                        InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                         startActivity(intent);
                     }
                 });
