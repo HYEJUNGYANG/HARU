@@ -38,6 +38,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.googlecode.tesseract.android.TessBaseAPI;
 
 import org.w3c.dom.Text;
@@ -67,6 +72,7 @@ public class OCRActivity extends AppCompatActivity {
     private Button btn_camera;
     private Button btn_re;
     private Button btn_submit;
+    private Button btn_analysis;
 
     private ImageView iv_crop;
     private ImageView iv_cropped;
@@ -82,9 +88,13 @@ public class OCRActivity extends AppCompatActivity {
     private String datapath = "" ; //언어데이터가 있는 경로
     private String lang = "kor";
 
+    private boolean isTrue = false;
+
     private File file;
 
     private Uri photoUri;
+
+    private DatabaseReference mDatabase;
 
     private static final int REQUEST_IMAGE_CODE = 101;
     private static final int CROP_FROM_CAMERA = 3;  // 가져온 사진을 자르기 위한 변수
@@ -100,6 +110,8 @@ public class OCRActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);  // 기본 title 제거
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.resize_icon_back);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         layout_ex = findViewById(R.id.layout_ex);
         layout_crop = findViewById(R.id.layout_crop);
@@ -201,11 +213,16 @@ public class OCRActivity extends AppCompatActivity {
 
                 layout_crop.setVisibility(View.GONE);
                 layout_result.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_analysis = findViewById(R.id.btn_analysis);
+        btn_analysis.setOnClickListener(new View.OnClickListener() {
 
-//                mTess.setImage(croppedBitmap);
-//                String OCRresult = mTess.getUTF8Text();
-//
-//                tv_ocr.setText(OCRresult);
+
+            @Override
+            public void onClick(View view) {
+                String str_write = et_write.getText().toString();
+                getData(str_write);
             }
         });
 
@@ -253,6 +270,43 @@ public class OCRActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void getData(String str) {
+        isTrue = false;
+        mDatabase.child("Database").child("MyDear").child("products").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    return;
+                }
+
+                String products = String.valueOf(task.getResult().getValue());
+                int count = Integer.parseInt(JSONParser.getJsonObject(products, "count"));
+                for(int i = 0; i < count; i++) {
+                    String product = JSONParser.getJsonObject(products, String.valueOf(i));
+                    String name = JSONParser.getJsonObject(product, "name");
+                    if (name.equals(str)) {
+                        isTrue = true;
+                    }
+                }
+                exportData(str);
+            }
+        });
+    }
+
+    private void exportData(String str) {
+        if (isTrue) {
+            Intent intent = new Intent(OCRActivity.this, OCRResultActivity.class);
+            intent.putExtra("name", str);
+            startActivity(intent);
+            overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+
+            finishAffinity();
+        }
+        else {
+            Toast.makeText(OCRActivity.this, "존재하지 않는 제품명입니다 😵‍💫", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void checkFile(File dir) {

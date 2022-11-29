@@ -208,8 +208,8 @@ public class ProductInfoActivity extends AppCompatActivity {
                     String name = JSONParser.getJsonObject(product, "name");
                     if (name.equals(product_name)) {
                         String brand = JSONParser.getJsonObject(product, "brand");
-                        String volume = JSONParser.getJsonObject(product, "volume");
-                        String price = JSONParser.getJsonObject(product, "price");
+                        String volume = JSONParser.getJsonObject(product, "volume").replace("·", ",");
+                        String price = JSONParser.getJsonObject(product, "price").replace("·", ",");
                         String tag = JSONParser.getJsonObject(product, "tag");
 
                         tv_brand.setText(brand);

@@ -43,6 +43,7 @@ public class JSONParser {
                         if(countBeginSymbol <= 0) {
                             res = res.substring(0, i + 1).replaceAll("nbsp;", " ");
                             res = res.replace("*", "nbsp;");
+                            res = res.replace("&middot;", "·");
                             break;
                         }
                     }
@@ -50,6 +51,7 @@ public class JSONParser {
                 else {
                     res = res.substring(0, res.indexOf(",")).replaceAll("nbsp;", " ");
                     res = res.replace("*", "nbsp;");
+                    res = res.replace("&middot;", "·");
                     Log.e(TAG, "res확인용 " + res);
                 }
 
