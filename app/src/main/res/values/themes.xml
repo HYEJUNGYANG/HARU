@@ -36,4 +36,9 @@
         <item name="stGravity">center</item> top or center
         <item name="stRadius">30dp</item>
     </style>
+
+    <!-- alertDialog 텍스트 크기 조정  -->
+    <style name="AlertDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

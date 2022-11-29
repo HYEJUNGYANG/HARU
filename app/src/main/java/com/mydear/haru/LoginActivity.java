@@ -194,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (id.equals(finalLoginId)) {
                                         String name = JSONParser.getJsonObject(user, "name");
                                         String type = JSONParser.getJsonObject(user, "type");
-                                        exportUserData(id, name, type);
+                                        exportUserData(name, type);
 
                                         break;
                                     }
@@ -235,7 +235,8 @@ public class LoginActivity extends AppCompatActivity {
         return digest;
     }
 
-    public void exportUserData(String id, String name, String type) {
+    public void exportUserData(String name, String type) {
+        String id = et_id.getText().toString();
         user = new User(id, name, type);
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

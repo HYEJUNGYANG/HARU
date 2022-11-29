@@ -10,18 +10,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mydear.haru.JSONParser;
 import com.mydear.haru.R;
+import com.mydear.haru.User;
 import com.mydear.haru.fragment.SurveyGroup1Fragment;
 import com.mydear.haru.fragment.SurveyGroup2Fragment;
 import com.mydear.haru.fragment.SurveyGroup3Fragment;
 import com.mydear.haru.fragment.SurveyGroup4Fragment;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 
@@ -43,6 +52,8 @@ public class SurveyActivity extends AppCompatActivity {
 
     public Result result;
 
+    public User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +64,37 @@ public class SurveyActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
+        // 두피 진단 결과가 있지만 다시 하는 경우를 위한 초기화
+        if (!user.getType().equals("none")) {
+            user.setType("none");
+            mDatabase.child("Database").child("MyDear").child("User").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if(!task.isSuccessful()) {
+                        return;
+                    }
+
+                    String user_id = user.getId();
+                    Log.e("userId: ", "" + user_id);
+                    user_id = getHash(user_id);
+                    String user_type = user.getType();
+                    Log.e("Type: ", "다시 측정!!" + user_type);
+
+                    String users = String.valueOf(task.getResult().getValue());
+                    int count = Integer.parseInt(JSONParser.getJsonObject(users, "count"));
+                    for(int i = 0; i < count; i++) {
+                        String user = JSONParser.getJsonObject(users, String.valueOf(i));
+                        String id = JSONParser.getJsonObject(user, "id");
+                        if (id.equals(user_id)) {
+                            mDatabase.child("Database").child("MyDear").child("User").child(String.valueOf(i)).child("type").setValue(user_type);
+                        }
+                    }
+                }
+            });
+        }
 
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -102,13 +144,12 @@ public class SurveyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (result.isGroup1IsChecked() && result.isGroup2IsChecked()
                         && result.isGroup3IsChecked() && result.isGroup4IsChecked()) {
-                    StyleableToast.makeText(SurveyActivity.this, "submit!!! ✨😆", Toast.LENGTH_SHORT, R.style.allCheckToast).show();
-//                    Toast.makeText(SurveyActivity.this, "submit!!! ✨😆", Toast.LENGTH_SHORT).show();
 
                     // 액티비티 전환 및 그 액티비티로 값 전달
                     Intent intent = new Intent(SurveyActivity.this, SurveyResultActivity.class);
 
                     // 값 전달
+                    intent.putExtra("user", user);
                     intent.putExtra("group1Result", result.getGroup1Result());
                     intent.putExtra("group2Result", result.getGroup2Result());
                     intent.putExtra("group3Result", result.getGroup3Result());
@@ -166,6 +207,27 @@ public class SurveyActivity extends AppCompatActivity {
         result.setGroup2IsChecked(false);
         result.setGroup3IsChecked(false);
         result.setGroup4IsChecked(false);
+    }
+
+    public static String getHash(String str) {
+        String digest = "";
+        try{
+
+            // 암호화
+            MessageDigest sh = MessageDigest.getInstance("SHA-256"); // SHA-256 해시함수를 사용
+            sh.update(str.getBytes()); // str의 문자열을 해싱하여 sh에 저장
+            byte byteData[] = sh.digest(); // sh 객체의 다이제스트를 얻는다.
+
+            // 얻은 결과를 string으로 변환
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0 ; i < byteData.length ; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            digest = sb.toString();
+        }catch(NoSuchAlgorithmException e) {
+            e.printStackTrace(); digest = null;
+        }
+        return digest;
     }
 
     @Override

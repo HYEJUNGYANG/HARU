@@ -4,16 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +27,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mydear.haru.JSONParser;
+import com.mydear.haru.JoinActivity;
+import com.mydear.haru.LoginActivity;
+import com.mydear.haru.MainActivity;
 import com.mydear.haru.R;
+import com.mydear.haru.User;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +76,7 @@ public class SurveyResultActivity extends AppCompatActivity {
 
     private String type = "";
     private List<Integer> result;
+    public User user;
 
     private boolean isType = false, isCare = false, isTrait = false;
 
@@ -80,8 +92,11 @@ public class SurveyResultActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // default: 뒤로가기 버튼 모양, 툴바 왼쪽 버튼 사용 여부
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_24); // 왼쪽 버튼 모양 설정
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.resize_icon_home); // 왼쪽 버튼 모양 설정
         getSupportActionBar().setDisplayShowTitleEnabled(false);  // toolbar title 제거
+
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         result = new ArrayList<Integer>();
@@ -90,6 +105,7 @@ public class SurveyResultActivity extends AppCompatActivity {
         trait = new HashMap<>();
 
         tv_name = findViewById(R.id.tv_name);
+        tv_name.setText(user.getName()+"님의 두피는");
         tv_description = findViewById(R.id.tv_description);
         tv_head = findViewById(R.id.tv_head);
         tv_type = findViewById(R.id.tv_type);
@@ -117,7 +133,20 @@ public class SurveyResultActivity extends AppCompatActivity {
         tv_c11 = findViewById(R.id.tv_c11);
         tv_c12 = findViewById(R.id.tv_c12);
 
-        changeTextColor(tv_name, "양혜정", "#3A4CA8", true);
+        changeTextColor(tv_name, user.getName(), "#3A4CA8", true);
+
+        if (!user.getType().equals("none")) {
+            type = user.getType();
+            isType = true;
+            getCare();
+        }
+        else {
+            Intent getResult = getIntent(); // 넘겨준 값을 받아옴
+            for (int i=1; i<=4; i++) {
+                result.add(getResult.getIntExtra("group" + Integer.toString(i) + "Result", 0));
+            }
+            getType(result);
+        }
 
         btn_search = findViewById(R.id.btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
@@ -130,11 +159,6 @@ public class SurveyResultActivity extends AppCompatActivity {
             }
         });
 
-        Intent getResult = getIntent(); // 넘겨준 값을 받아옴
-        for (int i=1; i<=4; i++) {
-            result.add(getResult.getIntExtra("group" + Integer.toString(i) + "Result", 0));
-        }
-        getType(result);
     }
 
     public void getType(List<Integer> result) {
@@ -150,6 +174,7 @@ public class SurveyResultActivity extends AppCompatActivity {
                                 return;
                             }
                             type += task.getResult().getValue();
+                            Log.e("type: ", "" + type);
 
                             isType = type.length() == 4 ? true : false;
                             getCare();
@@ -163,7 +188,6 @@ public class SurveyResultActivity extends AppCompatActivity {
         if (!isType) {
             return;
         }
-        System.out.println("타입결과는?????? " + type);
         mDatabase.child("Database").child("MyDear").child("Type").child(type).child("Care").get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
@@ -173,7 +197,31 @@ public class SurveyResultActivity extends AppCompatActivity {
                         }
                         care = (Map<String, String>) task.getResult().getValue();
                         isCare = true;
-                        getTrait();
+                        mDatabase.child("Database").child("MyDear").child("User").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if(!task.isSuccessful()) {
+                                    return;
+                                }
+
+                                String user_id = user.getId();
+                                Log.e("userId: ", "" + user_id);
+                                user_id = getHash(user_id);
+
+                                String users = String.valueOf(task.getResult().getValue());
+                                int count = Integer.parseInt(JSONParser.getJsonObject(users, "count"));
+                                for(int i = 0; i < count; i++) {
+                                    String user = JSONParser.getJsonObject(users, String.valueOf(i));
+                                    String id = JSONParser.getJsonObject(user, "id");
+                                    if (id.equals(user_id)) {
+                                        mDatabase.child("Database").child("MyDear").child("User").child(String.valueOf(i)).child("type").setValue(type);
+
+                                        getTrait();
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 });
     }
@@ -182,6 +230,7 @@ public class SurveyResultActivity extends AppCompatActivity {
         if (!isType) {
             return;
         }
+        user.setType(type);
         mDatabase.child("Database").child("MyDear").child("Type").child(type).child("Trait").get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
@@ -340,16 +389,46 @@ public class SurveyResultActivity extends AppCompatActivity {
         }
     }
 
+    public static String getHash(String str) {
+        String digest = "";
+        try{
+
+            // 암호화
+            MessageDigest sh = MessageDigest.getInstance("SHA-256"); // SHA-256 해시함수를 사용
+            sh.update(str.getBytes()); // str의 문자열을 해싱하여 sh에 저장
+            byte byteData[] = sh.digest(); // sh 객체의 다이제스트를 얻는다.
+
+            // 얻은 결과를 string으로 변환
+            StringBuffer sb = new StringBuffer();
+            for(int i = 0 ; i < byteData.length ; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            digest = sb.toString();
+        }catch(NoSuchAlgorithmException e) {
+            e.printStackTrace(); digest = null;
+        }
+        return digest;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:  // 툴바 왼쪽 버튼 클릭시
-                // 이후 설정
-                StyleableToast.makeText(SurveyResultActivity.this, "menu", Toast.LENGTH_SHORT, R.style.allCheckToast).show();
+                Intent intent = new Intent(SurveyResultActivity.this, MainActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 return true;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
 }
