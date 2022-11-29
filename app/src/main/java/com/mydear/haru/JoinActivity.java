@@ -6,17 +6,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -48,6 +58,10 @@ public class JoinActivity extends AppCompatActivity {
     private boolean name_value = false;
     private boolean value = false;
 
+    private boolean isOverlap = false;
+
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,16 +80,13 @@ public class JoinActivity extends AppCompatActivity {
         tv_wrong = findViewById(R.id.tv_wrong);
         tv_name_filled = findViewById(R.id.tv_name_filled);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         btn_join = findViewById(R.id.btn_join);
         btn_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = et_id.getText().toString();
-                Log.d(TAG, "암호화 전 비밀번호: " + id);
-                Toast.makeText(JoinActivity.this, "회원가입", Toast.LENGTH_SHORT).show();
-
-                id = getHash(id);
-                Log.d(TAG, "암호화 후 비밀번호: " + id);
+                checkOverlapId();
             }
         });
 
@@ -281,6 +292,81 @@ public class JoinActivity extends AppCompatActivity {
             btn_join.setEnabled(false);
             btn_join.setBackground(getDrawable(R.drawable.edit_rect_gray));
         }
+    }
+
+    private void checkOverlapId() {
+        isOverlap = false;
+
+        String id_check = et_id.getText().toString();
+        id_check = getHash(id_check);
+
+        String finalId_check = id_check;
+        mDatabase.child("Database").child("MyDear").child("User").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    return;
+                }
+
+                String users = String.valueOf(task.getResult().getValue());
+                int count = Integer.parseInt(JSONParser.getJsonObject(users, "count"));
+                for(int i = 0; i < count; i++) {
+                    String user = JSONParser.getJsonObject(users, String.valueOf(i));
+                    String id = JSONParser.getJsonObject(user, "id");
+                    if (id.equals(finalId_check)) {
+                        isOverlap = true;
+                    }
+                }
+                join();
+            }
+        });
+    }
+
+    private void join() {
+        if (isOverlap) {
+            Toast.makeText(JoinActivity.this, "중복되는 이메일 아이디가 존재합니다 😖", Toast.LENGTH_SHORT).show();
+            et_id.setText(null);
+            return;
+        }
+
+        mDatabase.child("Database").child("MyDear").child("User").child("count").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    return;
+                }
+
+                int count = Integer.parseInt(String.valueOf(task.getResult().getValue()));
+                String id = et_id.getText().toString();
+                id = getHash(id);
+                String pw = et_pw.getText().toString();
+                pw = getHash(pw);
+                String name = et_name.getText().toString();
+
+                mDatabase.child("Database").child("MyDear").child("User").child(String.valueOf(count)).child("id").setValue(id);
+                mDatabase.child("Database").child("MyDear").child("User").child(String.valueOf(count)).child("pw").setValue(pw);
+                mDatabase.child("Database").child("MyDear").child("User").child(String.valueOf(count)).child("name").setValue(name);
+                mDatabase.child("Database").child("MyDear").child("User").child(String.valueOf(count)).child("type").setValue("none");
+                mDatabase.child("Database").child("MyDear").child("User").child("count").setValue(count + 1);
+
+
+                Toast.makeText(JoinActivity.this, "회원가입이 완료되었습니다. 로그인 페이지로 이동합니다 ✨", Toast.LENGTH_SHORT).show();
+                // 키보드 숨기기
+                InputMethodManager immhide = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                immhide.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                // 0.5초 delay
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
+                        finish();
+                    }
+                }, 500);
+            }
+        });
     }
 
     @Override

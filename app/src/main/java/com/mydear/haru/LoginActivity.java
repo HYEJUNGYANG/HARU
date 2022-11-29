@@ -19,6 +19,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -38,11 +46,15 @@ public class LoginActivity extends AppCompatActivity {
     private boolean pw_value = false;
     private boolean value = false;
 
-    private String test_id = "test@naver.com";
-    private String test_pw = "1234";
+    private DatabaseReference mDatabase;
 
-    private String testHashId = "";
-    private String testHashPw = "";
+    private User user;
+
+//    private String test_id = "test@naver.com";
+//    private String test_pw = "1234";
+//
+//    private String testHashId = "";
+//    private String testHashPw = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);  // title 제거
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         tv_id_filled = findViewById(R.id.tv_id_filled);
 
@@ -137,29 +151,67 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = et_id.getText().toString();
-                String pw = et_pw.getText().toString();
 
-                id = getHash(id);
-                pw = getHash(pw);
+                mDatabase.child("Database").child("MyDear").child("User").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.getValue() == null) {
+                            return;
+                        }
 
-                if (id.equals(testHashId) && pw.equals(testHashPw)) {
-                    Toast.makeText(LoginActivity.this, "로그인 성공 ✨", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    finishAffinity();  // 기존에 있던 Activity 모두 제거
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, "아이디 혹은 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                }
+                        if(user != null) {
+                            return;
+                        }
+
+                        String json = snapshot.getValue().toString();
+
+                        String loginId = et_id.getText().toString();
+                        loginId = getHash(loginId);
+                        String pw = et_pw.getText().toString();
+                        pw = getHash(pw);
+
+                        String validUserInfo = getValidUserInfo(json, loginId, pw);
+
+                        if(validUserInfo == null) {
+                            Toast.makeText(LoginActivity.this, "이메일 또는 비밀번호를 확인해주세요 😖", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(LoginActivity.this, "로그인 되었습니다 ✨", Toast.LENGTH_SHORT).show();
+
+                        String finalLoginId = loginId;
+                        mDatabase.child("Database").child("MyDear").child("User").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if(!task.isSuccessful()) {
+                                    return;
+                                }
+
+                                String users = String.valueOf(task.getResult().getValue());
+                                int count = Integer.parseInt(JSONParser.getJsonObject(users, "count"));
+                                for(int i = 0; i < count; i++) {
+                                    String user = JSONParser.getJsonObject(users, String.valueOf(i));
+                                    String id = JSONParser.getJsonObject(user, "id");
+                                    if (id.equals(finalLoginId)) {
+                                        String name = JSONParser.getJsonObject(user, "name");
+                                        String type = JSONParser.getJsonObject(user, "type");
+                                        exportUserData(id, name, type);
+
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
-        // 임시로 넣은 테스트용 id, pw 확인
-        testHashId = getHash(test_id);
-        testHashPw = getHash(test_pw);
     }
 
     public static String getHash(String str) {
@@ -181,6 +233,37 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace(); digest = null;
         }
         return digest;
+    }
+
+    public void exportUserData(String id, String name, String type) {
+        user = new User(id, name, type);
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
+    }
+
+    public String getValidUserInfo(String json, String id, String pw) {
+        int count = Integer.parseInt(JSONParser.getJsonObject(json, "count"));
+
+        for(int i = 0; i < count; i++) {
+            String user = JSONParser.getJsonObject(json, Integer.toString(i));
+
+            if (user == null) {
+                continue;
+            }
+
+            String checkId = JSONParser.getJsonObject(user, "id");
+            String checkPw = JSONParser.getJsonObject(user, "pw");
+
+            if(checkId.equals(id) && checkPw.equals(pw)) {
+                return user;
+            }
+        }
+
+        return null;
     }
 
     public void goToJoinActivity() {
