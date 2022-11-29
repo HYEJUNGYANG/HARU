@@ -154,7 +154,7 @@
                     android:id="@+id/tv_price_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="5dp"
                     android:text="19,500원"
                     android:textColor="@color/black"
@@ -259,10 +259,11 @@
 
     <ImageView
         android:id="@+id/iv_haru"
+        android:adjustViewBounds="true"
         android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/icon_haru"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/icon_haru"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

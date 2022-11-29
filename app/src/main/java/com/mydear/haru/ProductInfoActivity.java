@@ -20,16 +20,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mydear.haru.fragment.product.ProductDetailFragment;
 import com.mydear.haru.fragment.product.ProductIngredientFragment;
 import com.mydear.haru.fragment.product.ProductPerfumeFragment;
+
+import org.w3c.dom.Text;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
@@ -37,6 +45,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     private ConstraintLayout layout_content;
     private ScrollView scroll;
 
+    private DatabaseReference mDatabase;
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private StorageReference productRef;
@@ -44,6 +53,12 @@ public class ProductInfoActivity extends AppCompatActivity {
     private Button btn_product_detail;
     private Button btn_product_ingredient;
     private Button btn_product_perfume;
+
+    private TextView tv_brand;
+    private TextView tv_product_name;
+    private TextView tv_volume_info;
+    private TextView tv_price_info;
+    private TextView tv_info;
 
     private ImageView iv_haru;
     private ImageView iv_product;
@@ -71,6 +86,8 @@ public class ProductInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  // toolbar 왼쪽 버튼
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.resize_icon_back);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         loading = findViewById(R.id.loading);
         layout_content = findViewById(R.id.layout_content);
         scroll = findViewById(R.id.scroll);
@@ -94,6 +111,12 @@ public class ProductInfoActivity extends AppCompatActivity {
         productIngredientFragment = new ProductIngredientFragment(product_name);
         productPerfumeFragment = new ProductPerfumeFragment(product_name);
         fragmentManager = getSupportFragmentManager();
+
+        tv_brand = findViewById(R.id.tv_brand);
+        tv_product_name = findViewById(R.id.tv_product_name);
+        tv_volume_info = findViewById(R.id.tv_volume_info);
+        tv_price_info = findViewById(R.id.tv_price_info);
+        tv_info = findViewById(R.id.tv_info);
 
         iv_product = findViewById(R.id.iv_haru);
         iv_product.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +156,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             }
         });
 
-        getImage(product_name);
+        getProductInfo(product_name);
     }
 
     public void changeButtonStyle(View view, Button btn1, Button btn2) {
@@ -148,7 +171,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     }
 
     // firebase storage img 불러오기
-    public void getImage(String folderName) {
+    public void getProductInfo(String folderName) {
         StorageReference productPathRef = storageRef.child("product/" + folderName + "/product.png");
 
         // success
@@ -168,6 +191,34 @@ public class ProductInfoActivity extends AppCompatActivity {
                 layout_content.setVisibility(View.VISIBLE);
                 Toast.makeText(ProductInfoActivity.this, "이미지가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "실패: ", e);
+            }
+        });
+
+        mDatabase.child("Database").child("MyDear").child("products").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(!task.isSuccessful()) {
+                    return;
+                }
+
+                String products = String.valueOf(task.getResult().getValue());
+                int count = Integer.parseInt(JSONParser.getJsonObject(products, "count"));
+                for(int i = 0; i < count; i++) {
+                    String product = JSONParser.getJsonObject(products, String.valueOf(i));
+                    String name = JSONParser.getJsonObject(product, "name");
+                    if (name.equals(product_name)) {
+                        String brand = JSONParser.getJsonObject(product, "brand");
+                        String volume = JSONParser.getJsonObject(product, "volume");
+                        String price = JSONParser.getJsonObject(product, "price");
+                        String tag = JSONParser.getJsonObject(product, "tag");
+
+                        tv_brand.setText(brand);
+                        tv_product_name.setText(name);
+                        tv_volume_info.setText(volume);
+                        tv_price_info.setText(price);
+                        tv_info.setText(tag);
+                    }
+                }
             }
         });
     }

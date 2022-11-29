@@ -1,5 +1,9 @@
 package com.mydear.haru;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+
 public class JSONParser {
     public JSONParser() {
 
@@ -11,15 +15,16 @@ public class JSONParser {
         str = str.substring(0, 1).equals("{") ? str.substring(1, length) : str;
         str = str.substring(length - 2, length - 1).equals("}") ?
                 str.substring(0, length - 2) : str;
-        str = "," + str.replace(" ", "") + ",";
+        str = "," + str.replace(" ", "") + ",";   // 앞뒤에 "," 추가 및 공백 제거
+        Log.e(TAG, "str 확인용 " + str);
 
         length = str.length();
         boolean find = true;
         int index = 0;
-        while(find) {
+        while(find) {  // find == false 일때까지
             index = str.indexOf("," + key + "=", index) + 1;
 
-            find = index > 0;
+            find = index > 0;  // index > 0 ? true : false (즉, 1 이상이면 true, 아니라면 false)
 
             if(find) {
                 String res = str.substring((index + 1) + key.length(), length);
@@ -37,12 +42,15 @@ public class JSONParser {
 
                         if(countBeginSymbol <= 0) {
                             res = res.substring(0, i + 1).replaceAll("nbsp;", " ");
+                            res = res.replace("*", "nbsp;");
                             break;
                         }
                     }
                 }
                 else {
                     res = res.substring(0, res.indexOf(",")).replaceAll("nbsp;", " ");
+                    res = res.replace("*", "nbsp;");
+                    Log.e(TAG, "res확인용 " + res);
                 }
 
                 return res;

@@ -172,7 +172,6 @@ public class SearchActivity extends AppCompatActivity {
                         Log.e(TAG, detailURL);
                         Intent intent = new Intent(SearchActivity.this, ProductInfoActivity.class);
                         intent.putExtra("name", name);
-                        Toast.makeText(SearchActivity.this, name, Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 });
